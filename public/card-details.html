@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Details - Secure Cards</title>
+    <meta name="description" content="Purchase credit card details">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="__className_f367f3 bg-black text-white min-h-screen">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black flex items-center justify-between px-4 py-3" style="height: 60px;">
+        <div class="flex items-center space-x-4">
+            <button id="nav-button" class="text-white" aria-label="Open navigation menu">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+                </svg>
+            </button>
+            <img alt="Logo" loading="lazy" width="40" height="40" decoding="async" class="h-10 w-10" src="logo.jpeg"/>
+        </div>
+        <a id="me-button" class="flex items-center space-x-2 text-white cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"></path>
+            </svg>
+            <span class="font-medium">Me</span>
+        </a>
+    </header>
+
+    <div class="pt-16">
+        <!-- Fast Delivery Tag -->
+        <div class="bg-teal-500 text-white px-6 py-3 mx-4 mt-4 rounded-full flex items-center justify-center" style="background-color: #20C997; border-radius: 20px; padding: 6px 14px; font-size: 14px; font-weight: bold;">
+            ⚡ Fast email delivery: 2–5 mins
+        </div>
+
+        <!-- Main Card Details Section -->
+        <section class="bg-black text-white mx-4 mt-5 rounded-lg p-6" style="margin-top: 20px;">
+            <!-- Card Title -->
+            <div class="text-center mb-6">
+                <h1 class="text-white font-bold mb-2" id="card-title" style="font-size: 26px;">Master Card</h1>
+                <div class="flex items-center justify-center space-x-2">
+                    <div class="flex space-x-1">
+                        <span style="color: #FFD700;">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <span style="color: #BBBBBB; font-size: 14px;" id="review-count">(220 reviews)</span>
+                </div>
+            </div>
+
+            <!-- Card Information Layout -->
+            <div class="space-y-2" style="line-height: 10px;">
+                <div class="grid grid-cols-[auto_1fr] gap-4 items-center py-2">
+                    <span style="color: #00CED1; font-weight: bold; font-size: 16px; text-transform: uppercase;">CARD TYPE:</span>
+                    <span class="text-white" style="font-size: 16px;" id="card-type">Master Card</span>
+                </div>
+
+                <div class="grid grid-cols-[auto_1fr] gap-4 items-center py-2">
+                    <span style="color: #00CED1; font-weight: bold; font-size: 16px; text-transform: uppercase;">HOLDER NAME:</span>
+                    <span class="text-white" style="font-size: 16px;" id="holder-name">John Doe</span>
+                </div>
+
+                <div class="grid grid-cols-[auto_1fr] gap-4 items-center py-2">
+                    <span style="color: #00CED1; font-weight: bold; font-size: 16px; text-transform: uppercase;">NUMBERS:</span>
+                    <span class="text-white" style="font-size: 16px;" id="card-numbers">5161 42** 8*** 0**</span>
+                </div>
+
+                <div class="grid grid-cols-[auto_1fr] gap-4 items-center py-2">
+                    <span style="color: #00CED1; font-weight: bold; font-size: 16px; text-transform: uppercase;">CVV:</span>
+                    <span class="text-white" style="font-size: 16px;" id="cvv">123</span>
+                </div>
+
+                <div class="grid grid-cols-[auto_1fr] gap-4 items-center py-2">
+                    <span style="color: #00CED1; font-weight: bold; font-size: 16px; text-transform: uppercase;">CARD LIMIT:</span>
+                    <span class="text-white" style="font-size: 16px;" id="card-limit">$1500</span>
+                </div>
+
+                <div class="grid grid-cols-[auto_1fr] gap-4 items-center py-2">
+                    <span style="color: #00CED1; font-weight: bold; font-size: 16px; text-transform: uppercase;">ADDRESS:</span>
+                    <span class="text-white" style="font-size: 16px;" id="address">123 Main Street</span>
+                </div>
+
+                <div class="grid grid-cols-[auto_1fr] gap-4 items-center py-2">
+                    <span style="color: #00CED1; font-weight: bold; font-size: 16px; text-transform: uppercase;">COUNTRY:</span>
+                    <span class="text-white" style="font-size: 16px;" id="country">United States</span>
+                </div>
+
+                <div class="grid grid-cols-[auto_1fr] gap-4 items-center py-2">
+                    <span style="color: #00CED1; font-weight: bold; font-size: 16px; text-transform: uppercase;">PRICE:</span>
+                    <span class="text-white" style="font-size: 16px;" id="price">$35</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proceed to Pay Button -->
+        <div class="text-center mt-8 px-4" style="margin-top: 25px;">
+            <div style="position: relative; display: inline-block;">
+                <button style="background-color: #FF7A00; color: white; font-weight: bold; padding: 12px 24px; border-radius: 30px; font-size: 16px; border: none; cursor: pointer;" onclick="proceedToMoMoPayment();">
+                    Proceed to pay
+                </button>
+                <!-- Red circle outline for emphasis -->
+                <div style="position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px; border: 2px solid #FF2E2E; border-radius: 35px; pointer-events: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="order-modal" class="fixed inset-0 z-50 hidden" style="background-color: rgba(0,0,0,0.6);">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-sm w-full mx-4" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.3); padding: 20px 25px;">
+                <div class="text-center">
+                    <h3 class="text-black font-bold mb-2" style="font-size: 22px;">Order Confirmed</h3>
+                    <p class="text-gray-700 mb-4" style="font-size: 15px; color: #333333;">Your order has been successfully placed!</p>
+
+                    <div class="mb-4">
+                        <p class="text-red-500 font-bold mb-1" style="font-size: 16px; color: #FF0000;">Warning ⚠️</p>
+                        <p class="text-sm text-gray-600 mb-4">
+                            Click on 'copy email' to copy this email <strong class="text-black">pays@securecards.com</strong> as your reference to complete the process.
+                        </p>
+                    </div>
+
+                    <button onclick="copyEmail()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mb-4" style="background-color: #1E90FF; border-radius: 8px; padding: 10px 18px; font-size: 15px;">
+                        Copy Email
+                    </button>
+
+                    <button onclick="proceedToPayment()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mt-2" style="background-color: #1E90FF; border-radius: 8px; padding: 10px 18px; font-size: 15px;">
+                        Proceed to Payment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Side Drawer Navigation Menu -->
+    <div id="side-drawer" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-50" id="drawer-backdrop"></div>
+        <div class="relative w-80 max-w-[90vw] h-full bg-white transform -translate-x-full transition-transform duration-300 ease-in-out" id="drawer-content">
+            <!-- Drawer Header -->
+            <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                <img alt="Logo" loading="lazy" width="48" height="48" decoding="async" class="h-12 w-12" src="logo.jpeg"/>
+                <button id="close-drawer" class="text-black hover:text-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Menu Items -->
+            <nav class="flex-1 px-4 py-6">
+                <div class="space-y-4">
+                    <a href="dashboard.html" class="flex items-center space-x-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
+                        </svg>
+                        <span class="text-black font-medium">Home</span>
+                    </a>
+
+                    <a href="cards.html" class="flex items-center space-x-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"></path>
+                        </svg>
+                        <span class="text-black font-medium">Popular Cards</span>
+                    </a>
+
+                    <a href="index.html" class="flex items-center space-x-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.25A2.25 2.25 0 0 1 0 18.75V10.5a2.25 2.25 0 0 1 2.25-2.25h5.25m7.5 0h5.25a2.25 2.25 0 0 1 2.25 2.25v8.25a2.25 2.25 0 0 1-2.25 2.25H18m-9-9V3a1.5 1.5 0 0 1 1.5-1.5h4.5A1.5 1.5 0 0 1 16.5 3v6m-9 0h9"></path>
+                        </svg>
+                        <span class="text-black font-medium">Shop</span>
+                    </a>
+
+                    <a href="faq.html" class="flex items-center space-x-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"></path>
+                        </svg>
+                        <span class="text-black font-medium">FAQ</span>
+                    </a>
+
+                    <a href="about.html" class="flex items-center space-x-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"></path>
+                        </svg>
+                        <span class="text-black font-medium">About Us</span>
+                    </a>
+                </div>
+            </nav>
+
+            <!-- Bottom Buttons -->
+            <div class="p-4 border-t border-gray-200">
+                <button class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 px-4 rounded-full mb-3 transition-colors">
+                    Sign in
+                </button>
+                <a href="signup.html" class="block text-center text-cyan-500 hover:text-cyan-600 font-medium">
+                    Sign up
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Arrays for random data generation
+        const firstNames = ['John', 'Jane', 'Michael', 'Sarah', 'David', 'Emma', 'Chris', 'Lisa', 'Robert', 'Maria'];
+        const lastNames = ['Smith', 'Johnson', 'Brown', 'Williams', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez'];
+        const streets = ['Main St', 'Oak Ave', 'Pine Rd', 'Elm St', 'Maple Dr', 'Cedar Ln', 'Birch Blvd', 'Spruce Way'];
+        const countries = ['United States', 'Canada', 'United Kingdom', 'Australia', 'Germany', 'France', 'Italy', 'Spain', 'Netherlands', 'Sweden'];
+
+        // Get card data from URL params
+        const urlParams = new URLSearchParams(window.location.search);
+        const cardName = urlParams.get('name') || 'Master Card';
+        const cardPrice = parseInt(urlParams.get('price')) || 35;
+        const cardReviews = parseInt(urlParams.get('reviews')) || 220;
+
+        // Generate random card details
+        function generateCardDetails() {
+            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+            const street = streets[Math.floor(Math.random() * streets.length)];
+            const streetNumber = Math.floor(Math.random() * 9999) + 1;
+            const country = countries[Math.floor(Math.random() * countries.length)];
+
+            // Generate masked card number
+            const cardNumber = Math.floor(Math.random() * 9000000000000000) + 1000000000000000;
+            const maskedNumber = cardNumber.toString().replace(/(\d{4})(\d{2})\d{2}(\d{3})\d{1}/, '$1 $2** $3** $4**');
+
+            // Generate CVV
+            const cvv = Math.floor(Math.random() * 900) + 100;
+
+            // Determine card limit based on price
+            let cardLimit = '$1500';
+            if (cardPrice === 50) cardLimit = '$2500';
+            else if (cardPrice === 100) cardLimit = '$3500';
+
+            return {
+                holderName: `${firstName} ${lastName}`,
+                cardNumbers: maskedNumber,
+                cvv: cvv.toString(),
+                cardLimit: cardLimit,
+                address: `${streetNumber} ${street}`,
+                country: country
+            };
+        }
+
+        // Populate page with data
+        document.addEventListener('DOMContentLoaded', () => {
+            const details = generateCardDetails();
+
+            document.getElementById('card-title').textContent = cardName;
+            document.getElementById('review-count').textContent = `(${cardReviews} reviews)`;
+            document.getElementById('card-type').textContent = cardName;
+            document.getElementById('holder-name').textContent = details.holderName;
+            document.getElementById('card-numbers').textContent = details.cardNumbers;
+            document.getElementById('cvv').textContent = details.cvv;
+            document.getElementById('card-limit').textContent = details.cardLimit;
+            document.getElementById('address').textContent = details.address;
+            document.getElementById('country').textContent = details.country;
+            document.getElementById('price').textContent = `$${cardPrice}`;
+        });
+
+        // Proceed to pay function - shows the confirmation modal
+        function proceedToPay() {
+            document.getElementById('order-modal').classList.remove('hidden');
+            document.body.classList.add('modal-open');
+        }
+
+        // Hide order confirmation modal
+        function hideOrderModal() {
+            document.getElementById('order-modal').classList.add('hidden');
+            document.body.classList.remove('modal-open');
+        }
+
+        // Copy email to clipboard
+        function copyEmail() {
+            const email = 'pays@securecards.com';
+            navigator.clipboard.writeText(email).then(() => {
+                alert('Email copied to clipboard: ' + email);
+            }).catch(err => {
+                console.error('Failed to copy email: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = email;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Email copied to clipboard: ' + email);
+            });
+        }
+
+        // Proceed to payment (MoMo)
+        function proceedToMoMoPayment() {
+            const params = new URLSearchParams({
+                name: cardName,
+                price: cardPrice,
+                reviews: cardReviews
+            });
+            window.location.href = `momo-payment.html?${params.toString()}`;
+        }
+
+        // Proceed to payment
+        function proceedToPayment() {
+            alert('Redirecting to payment...');
+            // Add payment logic here later
+        }
+
+        // Setup event listeners for navigation
+        setupEventListeners();
+    </script>
+</body>
+</html>

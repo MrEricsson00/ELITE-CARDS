@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Secure Cards</title>
+    <meta name="description" content="Login to your Secure Cards account">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="__className_f367f3 bg-white text-black min-h-screen">
+    <div class="min-h-screen flex items-center justify-center px-4 py-8">
+        <div class="w-full max-w-md">
+            <!-- Header Section -->
+            <div class="text-center mb-8">
+                <img alt="Logo" loading="lazy" width="80" height="80" decoding="async" class="h-20 w-20 mx-auto mb-4" src="logo.jpeg"/>
+                <h1 class="text-2xl md:text-3xl font-bold text-blue-600">Login to Secure Cards</h1>
+            </div>
+
+            <!-- Login Form -->
+            <form class="space-y-4" id="login-form">
+                <!-- Email -->
+                <div>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter Email"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                        required
+                    />
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter Password"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                        required
+                    />
+                </div>
+
+
+                <!-- Submit Button -->
+                <button
+                    type="submit"
+                    class="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold py-3 px-4 rounded-lg transition-colors"
+                >
+                    Login
+                </button>
+            </form>
+
+
+            <!-- Legal Text -->
+            <div class="mt-6 text-center text-sm text-gray-600">
+                <p>
+                    By logging in, you agree to our
+                    <a href="/privacy-policy" class="text-cyan-500 hover:text-cyan-600">Privacy Policy</a>,
+                    <a href="/cookie-policy" class="text-cyan-500 hover:text-cyan-600">Cookie Policy</a>, and
+                    <a href="/member-agreement" class="text-cyan-500 hover:text-cyan-600">Member Agreement</a>
+                </p>
+            </div>
+
+            <!-- Sign Up Link -->
+            <div class="mt-8 text-center">
+                <p class="text-gray-600">
+                    Don't have an account?
+                    <a href="signup.html" class="text-cyan-500 hover:text-cyan-600 font-medium">Sign up.</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Handle login form submission
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            console.log('Login form submitted with email:', email);
+
+            try {
+                // Sign in with Firebase Auth
+                const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                console.log('Firebase login successful:', email);
+                // Redirect immediately without alert to prevent blocking
+                window.location.replace('index.html'); // Redirect to main site after login
+            } catch (error) {
+                console.error('Error logging in:', error);
+                let errorMessage = 'Invalid email or password. Please try again.';
+                if (error.code === 'auth/user-not-found') {
+                    errorMessage = 'No account found with this email.';
+                } else if (error.code === 'auth/wrong-password') {
+                    errorMessage = 'Invalid password.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Please enter a valid email.';
+                }
+                alert(errorMessage);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Secure Cards</title>
+    <meta name="description" content="Your Secure Cards dashboard">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="__className_f367f3 bg-dark-bg text-white min-h-screen">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white flex items-center justify-between px-4 py-3 shadow-md">
+        <div class="flex items-center space-x-4">
+            <button id="nav-button" class="text-black cursor-pointer" aria-label="Open navigation menu">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+                </svg>
+            </button>
+            <img alt="Logo" loading="lazy" width="80" height="80" decoding="async" class="h-20 w-20" src="logo.jpeg"/>
+        </div>
+        <a id="me-button" class="flex items-center space-x-2 text-black cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"></path>
+            </svg>
+            <span class="font-medium">Me</span>
+        </a>
+    </header>
+
+    <div class="pt-16">
+        <!-- Success Notification -->
+        <div id="success-notification" class="bg-yellow-400 text-black px-4 py-3 mx-4 mt-4 rounded-lg flex items-center justify-between">
+            <span class="font-medium">You have successfully registered!</span>
+            <button id="close-notification" class="text-black hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Welcome Section -->
+        <section class="px-4 py-8">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">
+                Hi <span class="text-cyan-400" id="username">John Doe</span>, Buy Digital Credit Cards From All Over the World
+            </h1>
+            <p class="text-cyan-400 hover:text-cyan-300 cursor-pointer text-lg">
+                Shop Mastercard, Discover, Visa & More…
+            </p>
+            <div class="mt-4">
+                <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+                    Logout
+                </button>
+            </div>
+        </section>
+
+        <!-- Trending Section -->
+        <section class="px-4 py-6">
+            <div class="flex items-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-white mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 0 1 5.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"></path>
+                </svg>
+                <h2 class="text-xl font-semibold text-white">Trending in the market</h2>
+            </div>
+            <div class="flex flex-wrap gap-3">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-medium transition-colors">
+                    American Express
+                </button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-medium transition-colors">
+                    Discover
+                </button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-medium transition-colors">
+                    Master Card
+                </button>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-medium transition-colors">
+                    Visa Card
+                </button>
+            </div>
+        </section>
+
+        <!-- Top Sellers Section -->
+        <section class="px-4 py-8">
+            <h2 class="text-3xl font-bold text-center mb-8 text-white">Top Sellers This Week</h2>
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cards-grid">
+                    <!-- Cards will be populated by JavaScript -->
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <button id="view-all-btn" class="bg-blue-400 hover:bg-blue-500 text-white py-3 px-6 rounded-full font-bold transition-colors" onclick="toggleViewAll()">View All Credit Cards</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="order-modal" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-50" id="modal-backdrop" onclick="hideOrderModal()"></div>
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 relative z-10" onclick="event.stopPropagation()">
+                <h3 class="text-lg font-semibold mb-4">Confirm Your Order</h3>
+                <div id="order-details" class="mb-4">
+                    <!-- Order details will be populated by JavaScript -->
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="hideOrderModal()" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded">
+                        Cancel
+                    </button>
+                    <button onclick="proceedToPayment()" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+                        Proceed to Payment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Side Drawer Navigation Menu -->
+    <div id="side-drawer" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-50" id="drawer-backdrop"></div>
+        <div class="relative w-80 max-w-[90vw] h-full bg-white transform -translate-x-full transition-transform duration-300 ease-in-out" id="drawer-content">
+            <!-- Drawer Header -->
+            <div class="flex items-center justify-between p-4 border-b border-gray-200">
+                <img alt="Logo" loading="lazy" width="48" height="48" decoding="async" class="h-12 w-12" src="logo.jpeg"/>
+                <button id="close-drawer" class="text-black hover:text-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Menu Items -->
+            <nav class="flex-1 px-4 py-6">
+                <div class="space-y-4">
+                    <a href="dashboard.html" class="flex items-center space-x-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
+                        </svg>
+                        <span class="text-black font-medium">Home</span>
+                    </a>
+
+                    <a href="cards.html" class="flex items-center space-x-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"></path>
+                        </svg>
+                        <span class="text-black font-medium">Popular Cards</span>
+                    </a>
+
+                    <a href="index.html" class="flex items-center space-x-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.25A2.25 2.25 0 0 1 0 18.75V10.5a2.25 2.25 0 0 1 2.25-2.25h5.25m7.5 0h5.25a2.25 2.25 0 0 1 2.25 2.25v8.25a2.25 2.25 0 0 1-2.25 2.25H18m-9-9V3a1.5 1.5 0 0 1 1.5-1.5h4.5A1.5 1.5 0 0 1 16.5 3v6m-9 0h9"></path>
+                        </svg>
+                        <span class="text-black font-medium">Shop</span>
+                    </a>
+
+                    <a href="faq.html" class="flex items-center space-x-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"></path>
+                        </svg>
+                        <span class="text-black font-medium">FAQ</span>
+                    </a>
+
+                    <a href="about.html" class="flex items-center space-x-3 py-3 px-3 rounded-lg hover:bg-gray-100 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z"></path>
+                        </svg>
+                        <span class="text-black font-medium">About Us</span>
+                    </a>
+                </div>
+            </nav>
+
+            <!-- Bottom Buttons -->
+            <div class="p-4 border-t border-gray-200">
+                <div id="login-buttons">
+                    <a href="login.html" class="block w-4/5 mx-auto text-white font-semibold py-3 rounded-full mb-3 transition-colors text-center" style="background-color: #00E6E6;">
+                        Sign In
+                    </a>
+                    <a href="signup.html" class="block text-center font-medium hover:underline" style="color: #00E6E6;">
+                        Sign Up
+                    </a>
+                </div>
+                <div id="logout-button" style="display: none;">
+                    <button onclick="signOut()" class="block w-4/5 mx-auto text-white font-semibold py-3 rounded-full transition-colors text-center bg-cyan-500 hover:bg-cyan-600">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="script.js"></script>
+    <script>
+        console.log('Dashboard script loaded');
+
+        // Check if user is logged in
+        firebase.auth().onAuthStateChanged((user) => {
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Set username from Firebase user
+            const username = user.displayName || user.email;
+            console.log('Username:', username);
+            document.getElementById('username').textContent = username;
+
+            // Close notification
+            document.getElementById('close-notification').addEventListener('click', () => {
+                document.getElementById('success-notification').style.display = 'none';
+            });
+
+            // Logout functionality
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                firebase.auth().signOut().then(() => {
+                    window.location.href = 'index.html';
+                }).catch((error) => {
+                    console.error('Error signing out:', error);
+                });
+            });
+
+            // Setup event listeners for navigation
+            setupEventListeners();
+        });
+    </script>
+</body>
+</html>

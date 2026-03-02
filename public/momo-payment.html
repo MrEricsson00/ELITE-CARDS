@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoMo Payment - Secure Cards</title>
+    <meta name="description" content="MoMo Payment for Secure Cards">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --momo-dark: #1e1e1e;
+            --momo-green: #00A651;
+            --momo-text: #ffffff;
+        }
+
+        .momo-container {
+            min-height: 100vh;
+            background: var(--momo-dark);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .momo-card {
+            background: var(--momo-dark);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 24px;
+            width: 100%;
+            max-width: 500px;
+            color: var(--momo-text);
+        }
+
+        .momo-header {
+            background: var(--momo-green);
+            color: var(--momo-text);
+            padding: 16px 24px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: -24px -24px 24px -24px;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .momo-close-btn {
+            background: none;
+            border: none;
+            color: var(--momo-text);
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .momo-close-btn:hover {
+            opacity: 0.8;
+        }
+
+        .momo-icon {
+            text-align: center;
+            font-size: 48px;
+            margin: 20px 0;
+        }
+
+        .momo-title {
+            font-size: 22px;
+            font-weight: 700;
+            text-align: center;
+            margin: 16px 0 24px 0;
+            color: var(--momo-text);
+        }
+
+        .momo-instructions {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .momo-instructions ol {
+            margin: 0;
+            padding-left: 20px;
+            list-style-position: inside;
+        }
+
+        .momo-instructions li {
+            color: var(--momo-text);
+            font-size: 14px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .momo-guide-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--momo-green);
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
+
+        .momo-guide-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .momo-order-ref {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(0, 166, 81, 0.3);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .momo-order-ref-value {
+            font-weight: 700;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            color: var(--momo-green);
+        }
+
+        .momo-copy-btn {
+            background: var(--momo-green);
+            color: var(--momo-dark);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            transition: opacity 0.2s;
+        }
+
+        .momo-copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .momo-copy-btn.copied {
+            background: #22c55e;
+        }
+
+        .momo-payment-details {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 24px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .momo-payment-details-item {
+            margin-bottom: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .momo-payment-details-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .momo-phone {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .momo-form-group {
+            margin-bottom: 16px;
+        }
+
+        .momo-form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--momo-text);
+        }
+
+        .momo-form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--momo-text);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .momo-form-group input:focus {
+            outline: none;
+            border-color: var(--momo-green);
+            background: rgba(0, 166, 81, 0.1);
+        }
+
+        .momo-form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .momo-submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--momo-green);
+            color: var(--momo-dark);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .momo-submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .momo-submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .momo-notice {
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 16px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            .momo-container {
+                padding: 16px;
+            }
+
+            .momo-card {
+                padding: 16px;
+            }
+
+            .momo-header {
+                margin: -16px -16px 20px -16px;
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+
+            .momo-title {
+                font-size: 18px;
+            }
+
+            .momo-icon {
+                font-size: 40px;
+                margin: 16px 0;
+            }
+
+            .momo-submit-btn {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+
+        .error {
+            color: #ef4444;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .success-message {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid #22c55e;
+            color: #86efac;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-dark-bg text-white">
+    <div class="momo-container">
+        <div class="momo-card">
+            <!-- Header -->
+            <div class="momo-header">
+                <span>MoMo Payments [For Ghanaians Only]</span>
+                <button class="momo-close-btn" onclick="window.history.back();">×</button>
+            </div>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage">
+                Order submitted successfully! Processing will begin after payment verification.
+            </div>
+
+            <!-- Icon -->
+            <div class="momo-icon">🏧</div>
+
+            <!-- Title -->
+            <div class="momo-title">Send e-money</div>
+
+            <!-- Instructions -->
+            <div class="momo-instructions">
+                <ol>
+                    <li>Dial <strong>*110#</strong></li>
+                    <li>Select <strong>1: Send Money</strong></li>
+                    <li>Select recipient type</li>
+                    <li>Follow prompts</li>
+                </ol>
+            </div>
+
+            <!-- Guide Section -->
+            <div class="momo-guide-label">GUIDE</div>
+            <div class="momo-guide-text">
+                NB: Use the generated Order Reference as your payment reference.
+            </div>
+
+            <!-- Order Reference -->
+            <div class="momo-order-ref">
+                <span class="momo-order-ref-value" id="orderRef">ORD-0000000000</span>
+                <button class="momo-copy-btn" onclick="copyOrderReference();">Copy</button>
+            </div>
+
+            <!-- Payment Details -->
+            <div class="momo-payment-details">
+                <div class="momo-payment-details-item">○ Follow the steps above to make payment</div>
+                <div class="momo-payment-details-item">
+                    ○ VODAFONE CASH (Ghanaian Admin)<br>
+                    <span class="momo-phone">0506771158</span>
+                </div>
+                <div class="momo-payment-details-item">
+                    ○ Account Name: <strong>PHILOMINA APPOH</strong>
+                </div>
+            </div>
+
+            <!-- Customer Details Form -->
+            <form id="paymentForm" onsubmit="submitPayment(event);">
+                <div class="momo-form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                    <div class="error" id="fullNameError"></div>
+                </div>
+
+                <div class="momo-form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <div class="error" id="emailError"></div>
+                </div>
+
+                <div class="momo-form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                    <div class="error" id="phoneError"></div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="momo-submit-btn">I Have Made Payment</button>
+            </form>
+
+            <!-- Notice -->
+            <div class="momo-notice">
+                Orders will be processed after manual payment verification.<br>
+                Processing may take up to 24 hours.
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Generate unique order reference
+        function generateOrderReference() {
+            const timestamp = Date.now().toString().slice(-10);
+            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            return `ORD-${timestamp}${random}`;
+        }
+
+        // Get product details from URL params
+        const urlParams = new URLSearchParams(window.location.search);
+        const productName = urlParams.get('name') || 'Credit Card';
+        const productPrice = urlParams.get('price') || '35';
+
+        // Initialize order reference on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const orderRef = generateOrderReference();
+            document.getElementById('orderRef').textContent = orderRef;
+            
+            // Store order reference for form submission
+            document.getElementById('paymentForm').dataset.orderRef = orderRef;
+            document.getElementById('paymentForm').dataset.productName = productName;
+            document.getElementById('paymentForm').dataset.productPrice = productPrice;
+        });
+
+        // Copy order reference to clipboard
+        function copyOrderReference() {
+            const orderRef = document.getElementById('orderRef').textContent;
+            navigator.clipboard.writeText(orderRef).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+
+        // Validate email
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Validate phone
+        function isValidPhone(phone) {
+            // Allow various phone formats
+            const phoneRegex = /^[\d\s\-\+\(\)]{7,}$/;
+            return phoneRegex.test(phone);
+        }
+
+        // Submit payment form
+        function submitPayment(event) {
+            event.preventDefault();
+
+            // Clear errors
+            document.getElementById('fullNameError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('phoneError').textContent = '';
+
+            // Get form values
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const orderRef = document.getElementById('paymentForm').dataset.orderRef;
+
+            // Validate
+            let isValid = true;
+
+            if (!fullName) {
+                document.getElementById('fullNameError').textContent = 'Full name is required';
+                isValid = false;
+            }
+
+            if (!email) {
+                document.getElementById('emailError').textContent = 'Email is required';
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email';
+                isValid = false;
+            }
+
+            if (!phone) {
+                document.getElementById('phoneError').textContent = 'Phone number is required';
+                isValid = false;
+            } else if (!isValidPhone(phone)) {
+                document.getElementById('phoneError').textContent = 'Please enter a valid phone number';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            // Save order data to Firestore
+            saveOrderData(fullName, email, phone, orderRef);
+        }
+
+        // Save order data to Firestore
+        function saveOrderData(fullName, email, phone, orderRef) {
+            const currentUser = firebase.auth().currentUser;
+
+            if (!currentUser) {
+                alert('Error: User not authenticated. Please log in again.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const db = firebase.firestore();
+            const timestamp = new Date().toISOString();
+            const productName = document.getElementById('paymentForm').dataset.productName;
+            const productPrice = document.getElementById('paymentForm').dataset.productPrice;
+
+            // Create order object
+            const orderData = {
+                orderReference: orderRef,
+                userId: currentUser.uid,
+                userEmail: currentUser.email,
+                fullName: fullName,
+                email: email,
+                phone: phone,
+                productName: productName,
+                productPrice: productPrice,
+                status: 'Pending Manual Verification',
+                createdAt: timestamp,
+                updatedAt: timestamp
+            };
+
+            // Save to Firestore
+            db.collection('orders').doc(orderRef).set(orderData)
+                .then(() => {
+                    // Show success message
+                    document.getElementById('paymentForm').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+
+                    // Redirect after 3 seconds
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 3000);
+                })
+                .catch((error) => {
+                    console.error('Error saving order:', error);
+                    alert('Error processing your order. Please try again.');
+                });
+        }
+    </script>
+</body>
+</html>
