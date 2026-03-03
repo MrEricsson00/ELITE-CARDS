@@ -546,9 +546,11 @@
 
             storageRef.put(file)
                 .then((snapshot) => {
+                    console.log('File uploaded successfully');
                     return snapshot.ref.getDownloadURL();
                 })
                 .then((downloadURL) => {
+                    console.log('Download URL obtained:', downloadURL);
                     // Save order data with screenshot URL
                     const timestamp = new Date().toISOString();
                     const productName = document.getElementById('paymentForm').dataset.productName;
@@ -569,21 +571,32 @@
                         updatedAt: timestamp
                     };
 
+                    console.log('Saving order data to Firestore:', orderData);
                     return db.collection('orders').doc(orderRef).set(orderData);
                 })
                 .then(() => {
-                    // Hide form
-                    document.getElementById('paymentForm').style.display = 'none';
-                    document.getElementById('successMessage').style.display = 'block';
+                    console.log('Order saved successfully');
+                    // Hide form and show success message
+                    const formElement = document.getElementById('paymentForm');
+                    const successElement = document.getElementById('successMessage');
+                    
+                    if (formElement) {
+                        formElement.style.display = 'none';
+                    }
+                    if (successElement) {
+                        successElement.style.display = 'block';
+                        console.log('Success message displayed');
+                    }
 
-                    // Redirect after 3 seconds
+                    // Redirect after 5 seconds
                     setTimeout(() => {
                         window.location.href = 'index.html';
-                    }, 3000);
+                    }, 5000);
                 })
                 .catch((error) => {
                     console.error('Error processing payment:', error);
-                    document.getElementById('fileError').textContent = 'Error uploading file. Please try again.';
+                    console.error('Error details:', error.message, error.code);
+                    document.getElementById('fileError').textContent = 'Error: ' + error.message;
                     submitBtn.textContent = originalText;
                     submitBtn.disabled = false;
                 });
