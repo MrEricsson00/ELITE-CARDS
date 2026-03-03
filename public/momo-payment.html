@@ -203,6 +203,18 @@
             box-sizing: border-box;
         }
 
+        .momo-form-group input[type="file"] {
+            padding: 12px;
+            border: 2px dashed rgba(0, 166, 81, 0.5);
+            background: rgba(0, 166, 81, 0.05);
+            cursor: pointer;
+        }
+
+        .momo-form-group input[type="file"]:hover {
+            border-color: var(--momo-green);
+            background: rgba(0, 166, 81, 0.1);
+        }
+
         .momo-form-group input:focus {
             outline: none;
             border-color: var(--momo-green);
@@ -346,26 +358,50 @@
 
             <!-- Customer Details Form -->
             <form id="paymentForm" onsubmit="submitPayment(event);">
-                <div class="momo-form-group">
-                    <label for="fullName">Full Name *</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
-                    <div class="error" id="fullNameError"></div>
+                <div id="formSection">
+                    <div class="momo-form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                        <div class="error" id="fullNameError"></div>
+                    </div>
+
+                    <div class="momo-form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        <div class="error" id="emailError"></div>
+                    </div>
+
+                    <div class="momo-form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        <div class="error" id="phoneError"></div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="momo-submit-btn">I Have Made Payment</button>
                 </div>
 
-                <div class="momo-form-group">
-                    <label for="email">Email Address *</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                    <div class="error" id="emailError"></div>
-                </div>
+                <!-- Payment Proof Section (hidden initially) -->
+                <div id="paymentProofSection" style="display: none;">
+                    <div class="momo-form-group">
+                        <label for="paymentScreenshot">Upload Payment Screenshot *</label>
+                        <input type="file" id="paymentScreenshot" name="paymentScreenshot" accept="image/*" required>
+                        <div class="error" id="fileError"></div>
+                        <p style="font-size: 12px; color: rgba(255, 255, 255, 0.6); margin-top: 8px;">
+                            Please upload a clear screenshot showing your payment transaction
+                        </p>
+                    </div>
 
-                <div class="momo-form-group">
-                    <label for="phone">Phone Number *</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
-                    <div class="error" id="phoneError"></div>
-                </div>
+                    <!-- Submit Payment Proof Button -->
+                    <button type="button" class="momo-submit-btn" id="submitProofBtn" onclick="uploadPaymentProof();">
+                        <span id="uploadButtonText">Submit Payment Proof</span>
+                    </button>
 
-                <!-- Submit Button -->
-                <button type="submit" class="momo-submit-btn">I Have Made Payment</button>
+                    <!-- Back Button -->
+                    <button type="button" class="momo-submit-btn" style="background: rgba(255, 255, 255, 0.2); margin-top: 8px;" onclick="goBackToForm();">
+                        Back
+                    </button>
+                </div>
             </form>
 
             <!-- Notice -->
@@ -447,7 +483,6 @@
             const fullName = document.getElementById('fullName').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
-            const orderRef = document.getElementById('paymentForm').dataset.orderRef;
 
             // Validate
             let isValid = true;
@@ -477,12 +512,53 @@
                 return;
             }
 
-            // Save order data to Firestore
-            saveOrderData(fullName, email, phone, orderRef);
+            // Store form data and show file upload section
+            document.getElementById('paymentForm').dataset.fullName = fullName;
+            document.getElementById('paymentForm').dataset.email = email;
+            document.getElementById('paymentForm').dataset.phone = phone;
+
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('paymentProofSection').style.display = 'block';
         }
 
-        // Save order data to Firestore
-        function saveOrderData(fullName, email, phone, orderRef) {
+        // Go back to form
+        function goBackToForm() {
+            document.getElementById('fileError').textContent = '';
+            document.getElementById('paymentScreenshot').value = '';
+            document.getElementById('formSection').style.display = 'block';
+            document.getElementById('paymentProofSection').style.display = 'none';
+        }
+
+        // Upload payment proof and save order
+        function uploadPaymentProof() {
+            const fileInput = document.getElementById('paymentScreenshot');
+            const file = fileInput.files[0];
+            
+            document.getElementById('fileError').textContent = '';
+
+            if (!file) {
+                document.getElementById('fileError').textContent = 'Please select a file';
+                return;
+            }
+
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                document.getElementById('fileError').textContent = 'Please upload an image file';
+                return;
+            }
+
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                document.getElementById('fileError').textContent = 'File size must be less than 5MB';
+                return;
+            }
+
+            // Show loading state
+            const btn = document.getElementById('submitProofBtn');
+            const originalText = document.getElementById('uploadButtonText').textContent;
+            document.getElementById('uploadButtonText').textContent = 'Uploading...';
+            btn.disabled = true;
+
             const currentUser = firebase.auth().currentUser;
 
             if (!currentUser) {
@@ -491,30 +567,48 @@
                 return;
             }
 
+            // Get form data
+            const fullName = document.getElementById('paymentForm').dataset.fullName;
+            const email = document.getElementById('paymentForm').dataset.email;
+            const phone = document.getElementById('paymentForm').dataset.phone;
+            const orderRef = document.getElementById('paymentForm').dataset.orderRef;
+
+            // Upload file to Firebase Storage
             const db = firebase.firestore();
-            const timestamp = new Date().toISOString();
-            const productName = document.getElementById('paymentForm').dataset.productName;
-            const productPrice = document.getElementById('paymentForm').dataset.productPrice;
+            const storage = firebase.storage();
+            const fileExtension = file.name.split('.').pop();
+            const fileName = `${orderRef}_${Date.now()}.${fileExtension}`;
+            const storageRef = storage.ref(`payment-proofs/${currentUser.uid}/${fileName}`);
 
-            // Create order object
-            const orderData = {
-                orderReference: orderRef,
-                userId: currentUser.uid,
-                userEmail: currentUser.email,
-                fullName: fullName,
-                email: email,
-                phone: phone,
-                productName: productName,
-                productPrice: productPrice,
-                status: 'Pending Manual Verification',
-                createdAt: timestamp,
-                updatedAt: timestamp
-            };
+            storageRef.put(file)
+                .then((snapshot) => {
+                    return snapshot.ref.getDownloadURL();
+                })
+                .then((downloadURL) => {
+                    // Save order data with screenshot URL
+                    const timestamp = new Date().toISOString();
+                    const productName = document.getElementById('paymentForm').dataset.productName;
+                    const productPrice = document.getElementById('paymentForm').dataset.productPrice;
 
-            // Save to Firestore
-            db.collection('orders').doc(orderRef).set(orderData)
+                    const orderData = {
+                        orderReference: orderRef,
+                        userId: currentUser.uid,
+                        userEmail: currentUser.email,
+                        fullName: fullName,
+                        email: email,
+                        phone: phone,
+                        productName: productName,
+                        productPrice: productPrice,
+                        paymentProofURL: downloadURL,
+                        status: 'Pending Manual Verification',
+                        createdAt: timestamp,
+                        updatedAt: timestamp
+                    };
+
+                    return db.collection('orders').doc(orderRef).set(orderData);
+                })
                 .then(() => {
-                    // Show success message
+                    // Hide form and proof section
                     document.getElementById('paymentForm').style.display = 'none';
                     document.getElementById('successMessage').style.display = 'block';
 
@@ -524,8 +618,10 @@
                     }, 3000);
                 })
                 .catch((error) => {
-                    console.error('Error saving order:', error);
-                    alert('Error processing your order. Please try again.');
+                    console.error('Error processing payment:', error);
+                    document.getElementById('fileError').textContent = 'Error uploading file. Please try again.';
+                    document.getElementById('uploadButtonText').textContent = originalText;
+                    btn.disabled = false;
                 });
         }
     </script>
