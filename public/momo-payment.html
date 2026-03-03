@@ -377,12 +377,6 @@
                         <div class="error" id="phoneError"></div>
                     </div>
 
-                    <!-- Submit Button -->
-                    <button type="submit" class="momo-submit-btn">I Have Made Payment</button>
-                </div>
-
-                <!-- Payment Proof Section (hidden initially) -->
-                <div id="paymentProofSection" style="display: none;">
                     <div class="momo-form-group">
                         <label for="paymentScreenshot">Upload Payment Screenshot *</label>
                         <input type="file" id="paymentScreenshot" name="paymentScreenshot" accept="image/*" required>
@@ -391,17 +385,10 @@
                             Please upload a clear screenshot showing your payment transaction
                         </p>
                     </div>
-
-                    <!-- Submit Payment Proof Button -->
-                    <button type="button" class="momo-submit-btn" id="submitProofBtn" onclick="uploadPaymentProof();">
-                        <span id="uploadButtonText">Submit Payment Proof</span>
-                    </button>
-
-                    <!-- Back Button -->
-                    <button type="button" class="momo-submit-btn" style="background: rgba(255, 255, 255, 0.2); margin-top: 8px;" onclick="goBackToForm();">
-                        Back
-                    </button>
                 </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="momo-submit-btn">Submit Payment & Screenshot</button>
             </form>
 
             <!-- Notice -->
@@ -479,13 +466,16 @@
             document.getElementById('fullNameError').textContent = '';
             document.getElementById('emailError').textContent = '';
             document.getElementById('phoneError').textContent = '';
+            document.getElementById('fileError').textContent = '';
 
             // Get form values
             const fullName = document.getElementById('fullName').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
+            const fileInput = document.getElementById('paymentScreenshot');
+            const file = fileInput.files[0];
 
-            // Validate
+            // Validate user details
             let isValid = true;
 
             if (!fullName) {
@@ -509,57 +499,28 @@
                 isValid = false;
             }
 
+            // Validate file
+            if (!file) {
+                document.getElementById('fileError').textContent = 'Please select a screenshot file';
+                isValid = false;
+            } else if (!file.type.startsWith('image/')) {
+                document.getElementById('fileError').textContent = 'Please upload an image file';
+                isValid = false;
+            } else if (file.size > 5 * 1024 * 1024) {
+                document.getElementById('fileError').textContent = 'File size must be less than 5MB';
+                isValid = false;
+            }
+
             if (!isValid) {
                 return;
             }
 
-            // Store form data and show file upload section
-            document.getElementById('paymentForm').dataset.fullName = fullName;
-            document.getElementById('paymentForm').dataset.email = email;
-            document.getElementById('paymentForm').dataset.phone = phone;
-
-            document.getElementById('formSection').style.display = 'none';
-            document.getElementById('paymentProofSection').style.display = 'block';
-        }
-
-        // Go back to form
-        function goBackToForm() {
-            document.getElementById('fileError').textContent = '';
-            document.getElementById('paymentScreenshot').value = '';
-            document.getElementById('formSection').style.display = 'block';
-            document.getElementById('paymentProofSection').style.display = 'none';
+            // Proceed with upload
+            uploadPaymentProof(fullName, email, phone, file);
         }
 
         // Upload payment proof and save order
-        function uploadPaymentProof() {
-            const fileInput = document.getElementById('paymentScreenshot');
-            const file = fileInput.files[0];
-            
-            document.getElementById('fileError').textContent = '';
-
-            if (!file) {
-                document.getElementById('fileError').textContent = 'Please select a file';
-                return;
-            }
-
-            // Validate file type
-            if (!file.type.startsWith('image/')) {
-                document.getElementById('fileError').textContent = 'Please upload an image file';
-                return;
-            }
-
-            // Validate file size (max 5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                document.getElementById('fileError').textContent = 'File size must be less than 5MB';
-                return;
-            }
-
-            // Show loading state
-            const btn = document.getElementById('submitProofBtn');
-            const originalText = document.getElementById('uploadButtonText').textContent;
-            document.getElementById('uploadButtonText').textContent = 'Uploading...';
-            btn.disabled = true;
-
+        function uploadPaymentProof(fullName, email, phone, file) {
             const currentUser = firebase.auth().currentUser;
 
             if (!currentUser) {
@@ -568,10 +529,12 @@
                 return;
             }
 
-            // Get form data
-            const fullName = document.getElementById('paymentForm').dataset.fullName;
-            const email = document.getElementById('paymentForm').dataset.email;
-            const phone = document.getElementById('paymentForm').dataset.phone;
+            // Show loading state
+            const submitBtn = document.querySelector('button[type="submit"][class="momo-submit-btn"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Uploading...';
+            submitBtn.disabled = true;
+
             const orderRef = document.getElementById('paymentForm').dataset.orderRef;
 
             // Upload file to Firebase Storage
@@ -609,7 +572,7 @@
                     return db.collection('orders').doc(orderRef).set(orderData);
                 })
                 .then(() => {
-                    // Hide form and proof section
+                    // Hide form
                     document.getElementById('paymentForm').style.display = 'none';
                     document.getElementById('successMessage').style.display = 'block';
 
@@ -621,8 +584,8 @@
                 .catch((error) => {
                     console.error('Error processing payment:', error);
                     document.getElementById('fileError').textContent = 'Error uploading file. Please try again.';
-                    document.getElementById('uploadButtonText').textContent = originalText;
-                    btn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
                 });
         }
     </script>
